@@ -1,4 +1,4 @@
-import {PORT} from './config/envvars.js';
+import 'dotenv/config'
 import express from 'express';
 import connectDb from './config/db.js';
 import todoRouter from './services/todo/todo.routes.js';
@@ -10,6 +10,6 @@ connectDb();
 
 app.use('/api', todoRouter);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on port ${process.env.PORT}`);
 });
