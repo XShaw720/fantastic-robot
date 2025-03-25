@@ -13,5 +13,8 @@ export default async function pushNewItem(item) {
     return fetch(SERVICE_URL, {
         method: 'POST',
         body: JSON.stringify(item),
+        headers: {
+            'content-type': 'application/json;charset=utf-8'
+        }
     })
 }
