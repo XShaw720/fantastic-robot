@@ -1,13 +1,23 @@
 import mongoose from 'mongoose';
 
-const todoItemSchema = mongoose.Schema({
-    id: String,
-    name: {
-        require: true,
-        type: String
+const todoItemSchema = new mongoose.Schema(
+    {
+        id: {
+            require: true,
+            type: String
+        },
+        name: {
+            require: true,
+            type: String
+        },
+        isComplete: {
+            type: Boolean,
+            default: false
+        },
+        deletedAt: Date
     },
-    isComplete: Boolean
-});
+    { timestamps: true }
+);
 
 const TodoItem = mongoose.model('Todo_Item', todoItemSchema);
 
