@@ -3,12 +3,13 @@ import mongoose from 'mongoose';
 const todoItemSchema = new mongoose.Schema(
     {
         id: {
+            type: String,
             require: true,
-            type: String
+            unique: true
         },
         name: {
-            require: true,
-            type: String
+            type: String,
+            require: true
         },
         isComplete: {
             type: Boolean,

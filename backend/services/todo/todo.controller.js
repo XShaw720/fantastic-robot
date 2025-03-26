@@ -1,19 +1,24 @@
 import TodoItem from './todo.models.js';
+import TodoMapper from './todo.mapper.js';
 import { validationResult } from 'express-validator';
 
 const fetchAllTodos = async (_, res) => {
     const todoItems = await TodoItem.find({deletedAt: null});
-    res.send({body: todoItems});
+    res.send({body: todoItems.map(TodoMapper.toDto)});
 };
 
-const createTodo = async (req, res) => {
+const createTodo = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const todoItem = await TodoItem.create({id: req.body.id, name: req.body.name, isComplete: req.body.isComplete});
-    res.send({body: todoItem});
+    try{
+        const todoItem = await TodoItem.create(TodoMapper.fromCreateRequest(req.body)).catch(next);
+        res.send({body: TodoMapper.toDto(todoItem)});
+    } catch(error){
+        next(error)
+    }
 };
 
 const updateTodo = async (req, res) => {
@@ -21,8 +26,9 @@ const updateTodo = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    const todoItem = await TodoItem.findOneAndUpdate({id: req.params.id}, req.body, {new: true});
-    res.send({body: todoItem});
+
+    const todoItem = await TodoItem.findOneAndUpdate({id: req.params.id}, TodoMapper.fromUpdateRequest(req.body), {new: true});
+    res.send({body: TodoMapper.toDto(todoItem)});
 };
 
 const deleteTodo = async (req, res) => {
