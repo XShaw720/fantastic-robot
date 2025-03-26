@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import express from 'express';
 import connectDb from './config/db.js';
 import todoRouter from './services/todo/todo.routes.js';
