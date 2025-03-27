@@ -12,6 +12,9 @@ import { SERVICE_URL } from "../definitions/Config"
 export default async function updateItem(item) {
     return fetch(`${SERVICE_URL}/${item.id}`, {
         method: 'PUT',
-        body: JSON.stringify(item)
+        body: JSON.stringify(item),
+        headers: {
+            'content-type': 'application/json;charset=utf-8'
+        }
     })
 }

@@ -21,3 +21,13 @@ Create a simple `express`-based Node.js service to serve the needs of a basic TO
 1. navigate to `frontend`
 1. `npm install`
 1. `npm start` which will start the React app
+
+## How to start the backend locally 
+1. navigate to `backend`
+1. `npm install`
+1. `npm start`
+
+## How to start the backend with docker 
+1. navigate to `backend`
+1. `npm install`
+1. `docker compose up`
