@@ -15,7 +15,7 @@ export const errorHandler = fn => (req, res, next) => {
     
     Promise.resolve(fn(req, res, next)).catch(err => {
         console.error(`An error occured while calling ${fn.name}. `, err);
-        res.status(500).send({ msg: err.message });
+        res.status(500).send({ error: err.message });
     });
 
     console.log(`Successfully completed request to ${fn.name}.`);
